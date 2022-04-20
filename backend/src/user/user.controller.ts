@@ -7,19 +7,30 @@ import {
   Param,
   Post,
   Put,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { RegisterDto } from './register.dto';
 import { UserUpdateDto } from './user-update.dto';
 import { UserService } from './user.service';
 import * as bcrypt from 'bcrypt';
+import { Request } from 'express';
+import { JwtService } from '@nestjs/jwt';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService,
+  ) {}
 
+  @UseGuards(AuthGuard)
   @Get('me')
-  profile() {
-    return 'Urban Krepel';
+  async profile(@Req() req: Request) {
+    const jwt = req.cookies['jwt'] || undefined;
+    const data = await this.jwtService.verifyAsync(jwt);
+    return this.userService.findOne(data.id);
   }
 
   @Post()

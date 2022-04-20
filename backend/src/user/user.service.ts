@@ -22,6 +22,11 @@ export class UserService {
   findOne(id: number): Promise<User> {
     return this.userReposetory.findOne({ id });
   }
+
+  findOneByEmail(email: string): Promise<User | undefined> {
+    return this.userReposetory.findOne({ email });
+  }
+
   delete(id: number) {
     return this.userReposetory.delete({ id });
   }
