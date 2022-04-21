@@ -1,14 +1,18 @@
 import {
   BadRequestException,
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
+  ParseIntPipe,
   Post,
   Put,
   Req,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { RegisterDto } from './register.dto';
 import { UserUpdateDto } from './user-update.dto';
@@ -19,6 +23,7 @@ import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('user')
+@UseInterceptors(ClassSerializerInterceptor)
 export class UserController {
   constructor(
     private readonly userService: UserService,
@@ -55,17 +60,36 @@ export class UserController {
   }
 
   @Get(':id')
-  find_one(@Param('id') id: number) {
+  find_one(
+    @Param(
+      'id',
+      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
+    )
+    id: number,
+  ) {
     return this.userService.findOne(id);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: number) {
+  delete(
+    @Param(
+      'id',
+      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
+    )
+    id: number,
+  ) {
     return this.userService.delete(id);
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() data: UserUpdateDto) {
+  async update(
+    @Param(
+      'id',
+      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
+    )
+    id: number,
+    @Body() data: UserUpdateDto,
+  ) {
     return await this.userService.update(id, data);
   }
 }
