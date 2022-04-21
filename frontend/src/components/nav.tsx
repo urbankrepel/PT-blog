@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   return (
@@ -19,19 +20,19 @@ const Nav = () => {
               <h4 className="text-white">Contact</h4>
               <ul className="list-unstyled">
                 <li>
-                  <a href="/" className="text-white">
+                  <Link to={"/"} className="text-white">
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/" className="text-white">
+                  <Link to={"/login"} className="text-white">
                     Login
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/" className="text-white">
+                  <Link to={"/register"} className="text-white">
                     Register
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -47,9 +48,9 @@ const Nav = () => {
               height="20"
               fill="none"
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               aria-hidden="true"
               className="me-2"
               viewBox="0 0 24 24"

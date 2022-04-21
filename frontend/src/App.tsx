@@ -1,25 +1,21 @@
 import React from "react";
-import Nav from "./components/nav";
-import "./App.css";
-import Title from "./components/title";
-import Card from "./components/Card";
-import Footer from "./components/Footer";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import "./App.css";
+import Nav from "./components/nav";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 function App() {
   return (
     <>
-      <Nav />
-      <main>
-        <Title />
-        <div className="album py-5 bg-light">
-          <div className="container">
-            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-              <Card />
-            </div>
-          </div>
-        </div>
-        <Footer />
-      </main>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

@@ -12,10 +12,10 @@ const Title = () => {
             folks don’t simply skip over it entirely.
           </p>
           <p>
-            <a href="#" className="btn btn-primary my-2">
+            <a href="" className="btn btn-primary my-2">
               Main call to action
             </a>
-            <a href="#" className="btn btn-secondary my-2">
+            <a href="" className="btn btn-secondary my-2">
               Secondary action
             </a>
           </p>
