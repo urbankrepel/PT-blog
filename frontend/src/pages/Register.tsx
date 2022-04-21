@@ -3,6 +3,7 @@ import Nav from "../components/nav";
 import axios from "axios";
 
 import "./Register.css";
+import { useNavigate } from "react-router-dom";
 const Register = () => {
   const [first_name, set_first_name] = useState("");
   const [last_name, set_last_name] = useState("");
@@ -10,6 +11,7 @@ const Register = () => {
   const [password, set_password] = useState("");
   const [password_confirm, set_password_confirm] = useState("");
 
+  const navigation = useNavigate();
   const sumbit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
@@ -20,12 +22,26 @@ const Register = () => {
       password,
       password_confirm,
     };
-    console.log(data);
     const response = await axios.post(
       "http://localhost:3000/auth/register",
       data
     );
-    console.log(response);
+    if (response.status == 201) {
+      const loginData = {
+        email,
+        password,
+      };
+      const loginRes = await axios.post(
+        "http://localhost:3000/auth/login",
+        loginData,
+        { withCredentials: true }
+      );
+      if (loginRes.status == 200) {
+        navigation({
+          pathname: "/",
+        });
+      }
+    }
   };
 
   return (
