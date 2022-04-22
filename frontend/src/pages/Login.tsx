@@ -23,6 +23,7 @@ const Login = () => {
       { withCredentials: true }
     );
     if (response.status == 200) {
+      // window.location.reload();
       navigation({
         pathname: "/",
       });
