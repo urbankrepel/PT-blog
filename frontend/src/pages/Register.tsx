@@ -46,7 +46,6 @@ const Register = () => {
 
   return (
     <>
-      <Nav />
       <div className="d-flex vh-100">
         <main className="form-signin">
           <form onSubmit={sumbit}>

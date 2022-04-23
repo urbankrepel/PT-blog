@@ -14,7 +14,7 @@ export class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ default: '' })
   title: string;
 
   @Column()
@@ -29,4 +29,9 @@ export class Post {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @Column({ default: '' })
+  picture_path: string;
+  @Column({ default: '' })
+  picture_type: string;
 }

@@ -4,7 +4,7 @@ import axios from "axios";
 
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
-const Login = () => {
+const Login = ({ refreshUser }: { refreshUser: any }) => {
   const [email, set_email] = useState("");
   const [password, set_password] = useState("");
 
@@ -24,6 +24,7 @@ const Login = () => {
     );
     if (response.status == 200) {
       // window.location.reload();
+      await refreshUser();
       navigation({
         pathname: "/",
       });
@@ -32,7 +33,6 @@ const Login = () => {
 
   return (
     <>
-      <Nav />
       <main className="form-signin">
         <form onSubmit={sumbit}>
           <h1 className="h3 mb-3 fw-normal">Login</h1>

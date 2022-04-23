@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { User } from "../classes/user.dto";
 
-const Nav = () => {
-
+const Nav = ({ user, refreshUser }: { user: User; refreshUser: any }) => {
   const navigation = useNavigate();
   const odjava = async () => {
     const res = await axios.post(
@@ -13,6 +13,7 @@ const Nav = () => {
     );
     if (res.status == 201) {
       //izbrisi window.location.reload();//spremenjeno
+      await refreshUser();
       navigation({
         pathname: "/login",
       });
@@ -20,84 +21,46 @@ const Nav = () => {
   };
 
   return (
-    <header>
-      <div className="collapse bg-dark" id="navbarHeader">
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-8 col-md-7 py-4">
-              <h4 className="text-white">About</h4>
-              <p className="text-muted">
-                Add some information about the album below, the author, or any
-                other background context. Make it a few sentences long so folks
-                can pick up some informative tidbits. Then, link them off to
-                some social networking sites or contact information.
-              </p>
-            </div>
-            <div className="col-sm-4 offset-md-1 py-4">
-              <h4 className="text-white">Contact</h4>
-              <ul className="list-unstyled">
-                <li>
-                  <Link to={"/"} className="text-white">
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link to={"/login"} className="text-white">
-                    Login
-                  </Link>
-                </li>
-                <li>
-                  <Link to={"/register"} className="text-white">
-                    Register
-                  </Link>
-                </li>
-                <li>
-                  <a className="text-white" onClick={odjava}>
-                    Odjava
-                  </a>
-                </li>
-                <li>
-                  <Link to={"/create-post"} className="text-white">
-                    Create Post
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="navbar navbar-dark bg-dark shadow-sm">
-        <div className="container">
-          <a href="#" className="navbar-brand d-flex align-items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              aria-hidden="true"
-              className="me-2"
-              viewBox="0 0 24 24"
-            >
-              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-              <circle cx="12" cy="13" r="4" />
-            </svg>
-            <strong>PT Blog</strong>
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarHeader"
-            aria-controls="navbarHeader"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
+    <header className="p-3 bg-dark text-white">
+      <div className="container">
+        <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <Link
+            to="/"
+            className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
           >
-            <span className="navbar-toggler-icon"></span>
-          </button>
+            <b>PT Blog</b>
+          </Link>
+
+          <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li>
+              <Link to="/" className="nav-link px-2 text-secondary">
+                Home
+              </Link>
+            </li>
+          </ul>
+
+          <div className="text-end">
+            {!user.is_loged_in && (
+              <Link to="/login" className="btn btn-outline-light me-2">
+                Prijava
+              </Link>
+            )}
+            {!user.is_loged_in && (
+              <Link to="/register" className="btn btn-warning">
+                Ustvari račun
+              </Link>
+            )}
+            {user.is_loged_in && (
+              <Link to="/" className="btn btn-outline-light me-2">
+                Ustvari objavo
+              </Link>
+            )}
+            {user.is_loged_in && (
+              <button onClick={odjava} className="btn btn-warning">
+                Odjava
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </header>

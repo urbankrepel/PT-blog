@@ -17,7 +17,9 @@ export class PostService {
   }
 
   all(): Promise<Post[]> {
-    return this.postReposetory.find();
+    return this.postReposetory.find({
+      order: { created_at: 'DESC' },
+    });
   }
 
   findOne(id: number): Promise<Post> {
