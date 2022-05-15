@@ -16,13 +16,3 @@
 .form-signin input {
   border-radius: 0px;
 }
-
-form :nth-child(2) input {
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
-}
-
-form :nth-child(6) input {
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-}

@@ -10,6 +10,7 @@ const Card = ({
   title,
   user_display_name,
   reloadPosts,
+  hasImage,
 }: {
   content: string;
   id: number;
@@ -18,6 +19,7 @@ const Card = ({
   title: string;
   user_display_name: string;
   reloadPosts: any;
+  hasImage: boolean;
 }) => {
   //{ content }: { content: string }
 
@@ -33,16 +35,29 @@ const Card = ({
   return (
     <div className="col">
       <div className="card shadow-sm">
-        <img
-          src={`http://localhost:3000/post/image/${id}`}
-          className="img-thumbnail"
-        ></img>
+        {hasImage && (
+          <img
+            src={`http://localhost:3000/post/image/${id}`}
+            className="img-thumbnail"
+          ></img>
+        )}
 
         <div className="card-body">
           <h5 className="card-title">{title}</h5>
           <p className="card-text">{content}</p>
           <div className="d-flex justify-content-between align-items-center">
             <div className="btn-group">
+              <Link to={"/"} className="btn btn-sm btn-outline-secondary">
+                View
+              </Link>
+              {owner && (
+                <Link
+                  to={"/update-post/" + id}
+                  className="btn btn-sm btn-outline-secondary"
+                >
+                  Edit
+                </Link>
+              )}
               {owner && (
                 <button
                   type="button"
@@ -51,14 +66,6 @@ const Card = ({
                 >
                   Delete
                 </button>
-              )}
-              {owner && (
-                <Link
-                  to={"/update-post/" + id}
-                  className="btn btn-sm btn-outline-secondary"
-                >
-                  Edit
-                </Link>
               )}
             </div>
             <div className="d-flex flex-column">

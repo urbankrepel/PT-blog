@@ -39,6 +39,7 @@ const Cards = ({ user }: { user: User }) => {
                 post.user.first_name + " " + post.user.last_name
               }
               reloadPosts={loadPosts}
+              hasImage={post.picture_path !== ""}
             />
           );
         })}
